@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/demo_board?characterEncoding=UTF-8
+    driverClassName: org.mariadb.jdbc.Driver
+    username: root
+    password: osckorea!
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+  application:
+    name: demo-api
+
+logging:
+  level:
+    org:
+      springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%-5level] [%t] %logger{36} - %msg%n"
+  #    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] - %msg%n"
+  #    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  #  file: application.log
+
+### actuator 관련 설정 (메트릭 엔드포인트)
+### http://localhost:8088/actuator/metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,prometheus
+server:
+  port: 7077

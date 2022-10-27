@@ -9,32 +9,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
+@RequestMapping("/board")
 @RestController
 public class BoardRestController {
 
     private final BoardService boardService;
 
-    @GetMapping("/board")
+    @GetMapping("")
     private List<Board> boardList() {
         return boardService.boardList();
     }
 
-    @GetMapping("/board/{boardId}")
+    @GetMapping("/{boardId}")
     private Board show(@PathVariable Long boardId) {
         return boardService.show(boardId);
     }
 
-    @PostMapping("/board")
+    @PostMapping("")
     private Board save(@RequestBody Board board){
         return boardService.save(board);
     }
 
-    @DeleteMapping("/board/{boardId}")
+    @DeleteMapping("/{boardId}")
     private void delete(@PathVariable Long boardId){
         boardService.delete(boardId);
     }
 
-    @PutMapping("/board/{boardId}")
+    @PutMapping("/{boardId}")
     private Board update(@PathVariable Long boardId,@RequestBody Board board) {
         return boardService.update(boardId,board);
     }

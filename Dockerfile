@@ -1,12 +1,12 @@
-FROM gradle:7.5.1-jdk11-alpine AS build
-COPY --chown=gradle:gradle ./ /home
-WORKDIR /home
-RUN gradle build --no-daemon
+FROM gradle:7.4.1-jdk11-alpine AS build
+COPY --chown=gradle:gradle ./ /home/demo-api
+WORKDIR /home/demo-api
+RUN gradle build --no-daemon --stacktrace
 
 FROM openjdk:11
-EXPOSE 8088
+ARG JAR_FILE=build/libs/*.jar
 RUN mkdir /app
 
-COPY --from=build /home/build/libs/*-SNAPSHOT.jar ./app/application.jar
-
+COPY --from=build /home/demo-api/build/libs/*.jar /app/application.jar
+EXPOSE 8088
 ENTRYPOINT ["java","-jar","/app/application.jar"]

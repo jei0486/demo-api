@@ -1,0 +1,20 @@
+FROM mysql:5.7
+ENV MYSQL_ROOT_PASSWORD=osckorea!
+
+ENV MYSQL_DATABASE=demo_board
+
+ENV MYSQL_USER=board
+ENV MYSQL_PASSWORD=osckorea!
+
+EXPOSE 3306
+
+# docker build --tag mysqldb -f Dockerfile_MySQL .
+
+# docker run -d -p 3306:3306 --name mydb -v /home/ubuntu/mysqldata:/var/lib/mysql mysqldb
+
+# docker run -d --name mydb -v /home/ubuntu/mysqldata:/var/lib/mysql mysqldb
+
+# docker run --rm -d -p 8888:8888 --name demo-api --link docker_mysql_1:mysql --net docker_default jei0486/demo-api
+
+# docker run --rm -d -p 9099:9099 --name demo-fe --link docker_mysql_1:mysql --net docker_default jei0486/demo-fe
+
