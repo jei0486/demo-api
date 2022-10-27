@@ -2,14 +2,13 @@ package com.demo.api.controller;
 
 import com.demo.api.domain.Board;
 import com.demo.api.service.BoardService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/board")
+@RequestMapping("/boards")
 @RestController
 public class BoardRestController {
 

@@ -1,7 +1,4 @@
 spring:
-  profiles:
-    active: local
-
   datasource:
     url: jdbc:mariadb://mysql-svc.db/demo_board?characterEncoding=UTF-8
     driverClassName: org.mariadb.jdbc.Driver

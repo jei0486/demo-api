@@ -38,6 +38,7 @@ public class BoardService {
                 .createdId(board.getCreatedId())
                 .subject(board.getSubject())
                 .content(board.getContent())
+                .hits(0)
                 .build());
         return ModelMapperUtil.map(boardEntity,Board.class);
     }
