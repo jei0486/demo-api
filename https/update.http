@@ -1,0 +1,5 @@
+###
+PUT http://demo-fe.192.168.56.10.sslip.io/boards/1
+Content-Type: application/json
+
+< ./update.json

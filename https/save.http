@@ -1,0 +1,9 @@
+###
+POST http://demo-fe.192.168.56.10.sslip.io/boards
+Content-Type: application/json
+
+{
+    "subject": "제목입니다",
+    "content": "내용입니다",
+    "createdId": "evelyn"
+}
