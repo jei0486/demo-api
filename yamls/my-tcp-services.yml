@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-tcp-services
+  namespace: ingress-nginx
+data:
+  3306: "db/mysql-svc:3306"
