@@ -30,6 +30,7 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       LANG: C.UTF-8
+      TZ: Asia/Seoul
       SPRING_DATASOURCE_URL: jdbc:mariadb://host.docker.internal:3306/demo_board?characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: osckorea!
