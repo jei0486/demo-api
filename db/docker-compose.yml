@@ -11,6 +11,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: osckorea!
       MYSQL_DATABASE: demo_board
+      MYSQL_USER: board
+      MYSQL_PASSWORD: osckorea!
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci

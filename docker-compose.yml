@@ -1,0 +1,39 @@
+version: "3.0"
+
+services:
+  database:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    network_mode: bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      LANG: C.UTF-8
+      MYSQL_ROOT_PASSWORD: osckorea!
+      MYSQL_DATABASE: demo_board
+      MYSQL_USER: board
+      MYSQL_PASSWORD: osckorea!
+    volumes:
+      - board-mysql-data:/var/lib/mysql
+      - ./src/main/resources/db/migration:/docker-entrypoint-initdb.d
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+  service:
+    build: .
+    ports:
+      - "8088:8088"
+    network_mode: bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      LANG: C.UTF-8
+      SPRING_DATASOURCE_URL: jdbc:mariadb://host.docker.internal:3306/demo_board?characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: osckorea!
+
+volumes:
+  board-mysql-data:
+
