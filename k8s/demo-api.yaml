@@ -33,13 +33,13 @@ spec:
     spec:
       containers:
         - name: demo-api
-          image: docker.io/jei0486/demo-api:v0.4
+          image: docker.io/jei0486/demo-api:v2
           imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8088
           command: ["java"]
-          args: ['-jar', '/app/application.jar', '--spring.config.locatin=/config/application.yaml']
+          args: ['-cp', '@/app/jib-classpath-file','com.demo.api.DemoApiApplication', '--spring.config.locatin=/config/application.yaml']
           volumeMounts:
             - name: config
               mountPath: /config

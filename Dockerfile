@@ -4,7 +4,7 @@
 #WORKDIR /home/demo-api
 #RUN gradle build --no-daemon --stacktrace
 
-FROM openjdk:11.0.11-jre
+FROM openjdk:11.0.11-jre-slim
 EXPOSE 8088
 RUN mkdir /app
 COPY ./build/libs/*-SNAPSHOT.jar ./app/application.jar

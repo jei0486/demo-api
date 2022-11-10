@@ -1,9 +1,12 @@
 # demo-api
 
-- 도커라이징 with Dockerfile
+- kubernetes 
+  - 도커라이징 with Dockerfile (ver 0.1 ~ 0.6)
+  - Skaffold (ver1 ~ ver2)
 - docker-compose - mysql
 - appliction on kubernets
 - Spring Data Jpa
+
 
 ## make secret
 kubectl -n db create secret generic mysql \

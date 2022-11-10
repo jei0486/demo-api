@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-api-svc
+  namespace: api
+  labels:
+    app: demo-api
+spec:
+  ports:
+    - name: rest
+      port: 8088
+      targetPort: http
+  selector:
+    app: demo-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-api
+  namespace: api
+  labels:
+    app: demo-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-api
+  template:
+    metadata:
+      labels:
+        app: demo-api
+    spec:
+      containers:
+        - name: demo-api
+          image: docker.io/jei0486/demo-api:v2
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8088
+          command: ["java"]
+          args: ['-cp', '@/app/jib-classpath-file','com.demo.api.DemoApiApplication', '--spring.config.locatin=/config/application.yaml']
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          env:
+            - name: 'spring.application.name'
+              value: 'demo-api'
+      volumes:
+        - name: config
+          configMap:
+            name: demo-api-configmap
