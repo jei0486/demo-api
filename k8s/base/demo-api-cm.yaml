@@ -4,6 +4,8 @@ metadata:
   name: demo-api-configmap
   namespace: api
   # url: jdbc:mariadb://mysql-svc.db/demo_board?characterEncoding=UTF-8
+  # url: jdbc:mariadb://host.k3d.internal:3306/demo_board?characterEncoding=UTF-8
+  # url: jdbc:mariadb://host.docker.internal:3306/demo_board?characterEncoding=UTF-8
 data:
   application.yaml: |
     spring:
