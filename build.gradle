@@ -39,3 +39,31 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// dockerizing & deploy
+jib {
+	from {
+		image='openjdk:11.0.14.1-jre'
+	}
+
+	to {
+		image='jei0486/demo-api'
+
+		def imageTag = System.getenv('TAG') ?: 'v1'
+
+		tags=[imageTag]
+	}
+
+	container {
+		creationTime='USE_CURRENT_TIMESTAMP'
+		format='OCI'
+	}
+
+	extraDirectories {
+		paths {
+			path {
+				from = file('build/libs')
+			}
+		}
+	}
+}
