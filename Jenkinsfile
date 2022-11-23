@@ -30,7 +30,6 @@ pipeline {
             echo 'build'
             sh 'pwd'
             sh '''
-            chmod +x gradlew
             ./gradlew clean bootJar
             '''
          }
