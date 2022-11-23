@@ -37,14 +37,17 @@ pipeline {
          }
       }
 
-        stage('Publish-release') {
+       stage('dockerizing'){
             steps {
-                withDockerRegistry([ credentialsId: 'dockerhub', url: '']) {
+                sh '''
+                docker image build -f Dockerfile -t $REGISTRY:${TAG} .
+                '''
+            }
+        }
 
-                              sh '''
-                              ./gradlew jib -Ddocker.repo.username=$USERNAME -Ddocker.repo.password=$PASSWORD
-                              '''
-                  }
+        stage('Deploy docker image') {
+            steps {
+                withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) { sh 'docker push $REGISTRY:${TAG}'}
             }
         }
 
@@ -53,6 +56,8 @@ pipeline {
                 cleanWs()
             }
         }
+
+
 
     }
 }

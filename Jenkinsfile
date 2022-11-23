@@ -22,7 +22,6 @@ pipeline {
             git url: "$SOURCE_CODE_URL",
             branch: "$RELEASE_BRANCH",
             credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID"
-            sh 'ls'
         }
       }
 
@@ -37,17 +36,13 @@ pipeline {
          }
       }
 
-       stage('dockerizing'){
+        stage('Publish-release') {
             steps {
-                sh '''
-                docker image build -f Dockerfile -t $REGISTRY:${TAG} .
-                '''
-            }
-        }
-
-        stage('Deploy docker image') {
-            steps {
-                withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) { sh 'docker push $REGISTRY:${TAG}'}
+                withDockerRegistry([ credentialsId: 'dockerhub', url: '']) {
+                      sh '''
+                      ./gradlew jib -Ddocker.repo.username=$USERNAME -Ddocker.repo.password=$PASSWORD
+                      '''
+                  }
             }
         }
 
@@ -56,8 +51,6 @@ pipeline {
                 cleanWs()
             }
         }
-
-
 
     }
 }
