@@ -42,7 +42,7 @@ pipeline {
                 withDockerRegistry([ credentialsId: 'dockerhub', url: '']) {
 
                               sh '''
-                              ./gradlew jib
+                              ./gradlew jib -Ddocker.repo.username=$USERNAME -Ddocker.repo.password=$PASSWORD
                               '''
                   }
             }
