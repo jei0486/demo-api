@@ -19,21 +19,17 @@ pipeline {
             }
         }
 
-       stage('checkout') {
-         steps {
-             echo 'checkout'
-             checkout scm: [
-                     $class: "GitSCM",
-                     userRemoteConfigs: [[url: "$SOURCE_CODE_URL",
-                     credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID" ]],
-                     branches: [[name: "refs/tags/${TAG}"]]],
-                     poll: false
-             sh 'ls -al'
-         }
-       }
 
         stage('Build') {
             steps {
+              checkout scm: [
+                             $class: "GitSCM",
+                             userRemoteConfigs: [[url: "$SOURCE_CODE_URL",
+                             credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID" ]],
+                             branches: [[name: "refs/tags/${TAG}"]]],
+                             poll: false
+                     sh 'ls -al'
+
                 withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
                   sh "skaffold build -p dev -t ${TAG}"
                 }
