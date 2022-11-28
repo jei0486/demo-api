@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+        PATH = "$PATH:/usr/local/bin/"  // skaffold , argocd path
         SOURCECODE_JENKINS_CREDENTIAL_ID = 'jei0486'
         SOURCE_CODE_URL = 'https://github.com/jei0486/demo-api.git'
         RELEASE_BRANCH = 'main'
@@ -66,7 +67,6 @@ pipeline {
                 }
             }
        }
-
 
     }
 }
