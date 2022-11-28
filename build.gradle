@@ -41,6 +41,7 @@ tasks.named('test') {
 }
 
 // dockerizing & deploy
+/*
 jib {
 	from {
 		image='openjdk:11.0.14.1-jre'
@@ -67,3 +68,4 @@ jib {
 		}
 	}
 }
+*/
