@@ -14,27 +14,32 @@ pipeline {
             steps {
                 echo 'init'
                 echo "Current workspace : ${workspace}"
+                echo 'Build Number: ' + env.BUILD_NUMBER
+                echo 'Build Number: v' + env.BUILD_NUMBER
             }
         }
 
 
-        stage('Build') {
+      stage('clone') {
             steps {
-              checkout scm: [
-                             $class: "GitSCM",
-                             userRemoteConfigs: [[url: "$SOURCE_CODE_URL",
-                             credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID" ]],
-                             branches: [[name: "refs/tags/${TAG}"]]],
-                             poll: false
-                     sh 'ls -al'
+                echo 'clone'
+                git url: "$SOURCE_CODE_URL",
+                branch: "$RELEASE_BRANCH",
+                credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID"
+                sh "ls -al"
+            }
+        }
 
+
+        stage('Deploy docker image') {
+            steps {
                 withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
-                  sh "skaffold build -p dev -t ${TAG}"
+                 sh "skaffold build -p dev -t ${env:BUILD_NUMBER}"
                 }
             }
         }
 
-        stage('workspace clear'){
+        stage('Workspace Clear'){
             steps {
                 cleanWs()
             }
