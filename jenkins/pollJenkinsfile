@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    environment {
+        PATH = "$PATH:/usr/local/bin/"  // skaffold , argocd path
+        SOURCECODE_JENKINS_CREDENTIAL_ID = 'jei0486'
+        SOURCE_CODE_URL = 'https://github.com/jei0486/demo-api.git'
+        RELEASE_BRANCH = 'main'
+        REGISTRY = 'jei0486/demo-api'
+    }
+
+    stages {
+
+        stage('init') {
+            steps {
+                echo 'init'
+                echo "Current workspace : ${workspace}"
+            }
+        }
+
+
+        stage('Build') {
+            steps {
+              checkout scm: [
+                             $class: "GitSCM",
+                             userRemoteConfigs: [[url: "$SOURCE_CODE_URL",
+                             credentialsId: "$SOURCECODE_JENKINS_CREDENTIAL_ID" ]],
+                             branches: [[name: "refs/tags/${TAG}"]]],
+                             poll: false
+                     sh 'ls -al'
+
+                withDockerRegistry([ credentialsId: 'dockerhub', url: '' ]) {
+                  sh "skaffold build -p dev -t ${TAG}"
+                }
+            }
+        }
+
+        stage('workspace clear'){
+            steps {
+                cleanWs()
+            }
+        }
+
+    }
+}
