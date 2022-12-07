@@ -1,13 +1,10 @@
 package com.demo.api.domain;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-
-@Entity
 @Table(name="board")
 @Getter
 @Setter
@@ -15,6 +12,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @EntityListeners(value = {AuditingEntityListener.class})
 public class BoardEntity extends BaseTimeEntity {
 
@@ -24,15 +22,14 @@ public class BoardEntity extends BaseTimeEntity {
     private String subject;
     private String content;
 
+    @Builder.Default
     @Column
-    @ColumnDefault("0") //default 0
-    private Integer hits;
+    private Integer hits = 0;  //default 0
 
     @Column(name="ins_id")
     private String createdId;
 
     @Column(name="mod_id")
     private String modifiedId;
-
 
 }

@@ -13,17 +13,7 @@ spring:
     hibernate:
       ddl-auto: none
 
-  application:
-    name: demo-api
 
-logging:
-  level:
-    org:
-      springframework.web.reactive.function.client.ExchangeFunctions: DEBUG
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
   pattern:
     console: "%d{HH:mm:ss.SSS} [%-5level] [%t] %logger{36} - %msg%n"
 
@@ -32,5 +22,3 @@ management:
     web:
       exposure:
         include: metrics,prometheus
-server:
-  port: 8088

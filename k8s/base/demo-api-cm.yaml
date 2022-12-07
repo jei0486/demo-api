@@ -41,5 +41,3 @@ data:
         web:
           exposure:
             include: metrics,prometheus
-    server:
-      port: 8088

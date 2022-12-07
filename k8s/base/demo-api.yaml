@@ -9,7 +9,7 @@ metadata:
 spec:
   ports:
     - name: rest
-      port: 8088
+      port: 8080
       targetPort: http
   selector:
     app: demo-api
@@ -37,4 +37,4 @@ spec:
           imagePullPolicy: Always
           ports:
             - name: http
-              containerPort: 8088
+              containerPort: 8080

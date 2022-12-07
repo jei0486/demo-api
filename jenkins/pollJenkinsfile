@@ -14,8 +14,6 @@ pipeline {
             steps {
                 echo 'init'
                 echo "Current workspace : ${workspace}"
-                echo 'Build Number: ' + env.BUILD_NUMBER
-                echo 'Build Number: v' + env.BUILD_NUMBER
             }
         }
 
@@ -45,5 +43,11 @@ pipeline {
             }
         }
 
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
     }
 }

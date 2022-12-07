@@ -1,11 +1,15 @@
 # demo-api
 
-- kubernetes 
+- Spring Boot (2.7.6), Gradle (7.5.1), jdk 11
+- Spring Data JPA
+
+### appliction on kubernets
+- kubernetes 환경의 Spring Boot Application 배포
   - 도커라이징 with Dockerfile (ver 0.1 ~ 0.6)
   - Skaffold (ver1 ~ ver2)
 - docker-compose - mysql
-- appliction on kubernets
-- Spring Data Jpa
+- Jenkins
+- Skaffold
 
 
 ## make secret
